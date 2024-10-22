@@ -1,9 +1,18 @@
-import React from 'react'
+import { useState } from 'react'
 
-const AddCustomerForm = () => {
+
+const AddCustomerForm = ({ addCustomer }) => {
+  const [customerName, setCustomerName] = useState('')
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    if(customerName.trim() === '') return
+    addCustomer(customerName)
+    setCustomerName('')
+  }
   return (
-    <form className="flex">
-      <input type="text" className="border border-sky-800 flex-1 px-2 py-1 rounded-l-lg" />
+    <form className="flex" onSubmit={handleSubmit}>
+      <input value={customerName} onChange={(e) => setCustomerName(e.target.value)} 
+         type="text" className="border border-sky-800 flex-1 px-2 py-1 rounded-l-lg" />
       <button className='bg-sky-800 text-white font-semibold px-5 rounded-r-lg hover:bg-sky-900 transition-colors'>Add Customer</button>
     </form>
   )
